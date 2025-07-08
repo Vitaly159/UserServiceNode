@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  user:
+    image: user
+    build: .
+    ports:
+      - "${PORT:-5000}:5000"
+    environment:
+      PORT: 5000
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/user"
+    depends_on:
+      - db_user
+    networks:
+    - user-network
+
+  db_user:
+    image: postgres:15-alpine
+    container_name: user_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: user
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+    - user-network
+
+volumes:
+  postgres_data:
+
+networks:
+  user-network:
+    driver: bridge 

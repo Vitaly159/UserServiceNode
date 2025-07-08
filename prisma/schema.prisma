@@ -13,7 +13,7 @@ model User {
   email      String   @unique
   password   String
   firstName  String
-  secontName String
+  secondName String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
