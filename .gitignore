@@ -4,6 +4,7 @@ dist/
 build/
 
 # Prisma
+generated
 prisma/migrations/
 .prisma/
 .prisma/client/

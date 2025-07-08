@@ -2,7 +2,8 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/server.ts",
-    "lint": "eslint src --ext .ts,.js"
+    "lint": "eslint src --ext .ts,.js",
+    "migrate": "prisma migrate dev --name init"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",
