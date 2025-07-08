@@ -2,19 +2,18 @@ version: '3.8'
 
 services:
   user:
-    image: user
     build: .
     ports:
-      - "${PORT:-5000}:5000"
+      - "5001:5001"  # проброс порта для сервера
     environment:
-      PORT: 5000
-      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/user"
+      PORT: 5001
+      DATABASE_URL: "postgresql://postgres:postgres@host.docker.internal:5432/user"
     depends_on:
-      - db_user
+      - db
     networks:
-    - user-network
+      - user-network
 
-  db_user:
+  db:
     image: postgres:15-alpine
     container_name: user_db
     environment:
@@ -22,15 +21,15 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: user
     ports:
-      - "5432:5432"
+      - "5432:5432"  # проброс порта базы данных
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-    - user-network
+      - user-network
 
 volumes:
   postgres_data:
 
 networks:
   user-network:
-    driver: bridge 
+    driver: bridge
