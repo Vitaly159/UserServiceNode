@@ -1,37 +1,44 @@
 import { Request, Response } from "express";
 import { createUser, getUserById, getAllUsers } from "../services/userService";
+import { UserDto } from "../dto/user.dto";
 
 export const registerUser = async (req: Request, res: Response) => {
-  try {
-    const user = await createUser(req.body);
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ error: "Ошибка при создании пользователя" });
-  }
+  const user = await createUser(req.body);
+  const userDto: UserDto = {
+    id: user.id,
+    email: user.email,
+    firstName: user.firstName,
+    secondName: user.secondName,
+    // roleId: user.roleId,
+  };
+  res.status(201).json(userDto);
 };
 
 export const getUser = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  try {
-    const user = await getUserById(id);
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404).json({ error: "Пользователь не найден" });
-    }
-  } catch (err) {
-    res.status(500).json({ error: "Ошибка при получении пользователя" });
+  const user = await getUserById(id);
+  if (user) {
+    const userDto: UserDto = {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      secondName: user.secondName,
+    //   roleId: user.roleId,
+    };
+    res.json(userDto);
+  } else {
+    res.status(404).json({ error: "Пользователь не найден" });
   }
 };
 
 export const getAll = async (_req: Request, res: Response) => {
-  try {
-    const users = await getAllUsers();
-    console.log(users);
-    res.json(users);
-  } catch (err) {
-    console.log(err);
-    
-    res.status(500).json({ error: "Ошибка при получении списка" });
-  }
+  const users = await getAllUsers();
+  const usersDto: UserDto[] = users.map((user) => ({
+    id: user.id,
+    email: user.email,
+    firstName: user.firstName,
+    secondName: user.secondName,
+    // roleId: user.roleId,
+  }));
+  res.json(usersDto);
 };
