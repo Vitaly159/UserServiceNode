@@ -11,6 +11,11 @@ export default defineConfig([
       globals: {
         ...globals.node,
       }
+
+    },
+    parserOptions: {
+      ecmaVersion: 2021, // Or the latest supported version
+      sourceType: 'module' // If using ES modules
     },
 
     rules: {
@@ -37,7 +42,7 @@ export default defineConfig([
       "keyword-spacing": ["error", { "before": true, "after": true }], // Пробелы после/до ключевых слов
 
       // TypeScript специфичные правила
-      "@typescript-eslint/no-explicit-any": "warn", // Предупреждение для any
+      "@typescript-eslint/no-explicit-any": ["warn"], // Предупреждение для any
       "@typescript-eslint/explicit-function-return-type": "off", // Не требовать явно возвращаемый тип
       "@typescript-eslint/no-unused-vars": ["warn"], // Предупреждение о неиспользуемых переменных
       "@typescript-eslint/ban-ts-comment": "off", // Разрешить ts-ignore и т.п.
