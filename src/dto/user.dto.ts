@@ -3,5 +3,4 @@ export interface UserDto {
   email: string;
   firstName: string;
   secondName: string;
-//   roleId?: number;
 }

@@ -9,7 +9,6 @@ export const registerUser = async (req: Request, res: Response) => {
     email: user.email,
     firstName: user.firstName,
     secondName: user.secondName,
-    // roleId: user.roleId,
   };
   res.status(201).json(userDto);
 };
@@ -23,7 +22,6 @@ export const getUser = async (req: Request, res: Response) => {
       email: user.email,
       firstName: user.firstName,
       secondName: user.secondName,
-    //   roleId: user.roleId,
     };
     res.json(userDto);
   } else {
@@ -38,7 +36,6 @@ export const getAll = async (_req: Request, res: Response) => {
     email: user.email,
     firstName: user.firstName,
     secondName: user.secondName,
-    // roleId: user.roleId,
   }));
   res.json(usersDto);
 };
