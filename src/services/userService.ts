@@ -4,7 +4,9 @@ import bcrypt from "bcrypt";
 const SALT_ROUNDS = 10;
 const prisma = new PrismaClient();
 
-export const createUser = async (data: Omit<User, "id" | "isActive" | "createdAt" | "updatedAt">): Promise<User> => {
+export const createUser = async (
+  data: Omit<User, "id" | "isActive" | "createdAt" | "updatedAt" | "roleId" | "passwordUpdatedAt">
+): Promise<User> => {
   const existingEmail = await prisma.user.findUnique({ where: { email: data?.email } });
   if (existingEmail) {
     throw new Error("Такой Email уже существует");
