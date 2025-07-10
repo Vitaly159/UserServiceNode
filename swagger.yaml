@@ -98,5 +98,37 @@ paths:
           description: Пользователь не найден
         '500':
           description: Ошибка при удалении
-components: {}
-tags: []
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        secondName:
+          type: string
+        roleId:
+          type: integer
+    UserCreate:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        firstName:
+          type: string
+        secondName:
+          type: string
+        roleId:
+          type: integer
+      required:
+        - email
+        - password
+        - firstName
+        - secondName
+        - roleId
