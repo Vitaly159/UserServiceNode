@@ -22,7 +22,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserInput'
+              $ref: '#/components/schemas/UserCreate'
       responses:
         '201':
           description: Пользователь создан
@@ -39,7 +39,7 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         '200':
           description: Успешный ответ
@@ -56,13 +56,13 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserInput'
+              $ref: '#/components/schemas/User'
       responses:
         '200':
           description: Пользователь обновлен
@@ -79,7 +79,7 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         '204':
           description: Пользователь удален
@@ -92,14 +92,16 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         email:
           type: string
         firstName:
           type: string
         secondName:
           type: string
-    UserInput:
+        roleId:
+          type: integer
+    UserCreate:
       type: object
       properties:
         email:
@@ -110,8 +112,11 @@ components:
           type: string
         secondName:
           type: string
+        roleId:
+          type: integer
       required:
         - email
         - password
         - firstName
         - secondName
+        - roleId
