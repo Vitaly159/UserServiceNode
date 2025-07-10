@@ -1,20 +1,9 @@
 openapi: 3.0.0
 info:
-  title: User Service API
+  title: API
   version: 1.0.0
 paths:
   /api/users:
-    get:
-      summary: Получить список пользователей
-      responses:
-        '200':
-          description: Успешный ответ
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
     post:
       summary: Создать нового пользователя
       requestBody:
@@ -30,7 +19,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-
+        '400':
+          description: Ошибка валидации
+        '500':
+          description: Внутренняя ошибка сервера
+    get:
+      summary: Получить список пользователей
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '500':
+          description: Внутренняя ошибка сервера
   /api/users/{id}:
     get:
       summary: Получить пользователя по ID
@@ -49,6 +54,8 @@ paths:
                 $ref: '#/components/schemas/User'
         '404':
           description: Пользователь не найден
+        '500':
+          description: Внутренняя ошибка сервера
     put:
       summary: Обновить пользователя по ID
       parameters:
@@ -70,8 +77,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '400':
+          description: Ошибка валидации
         '404':
           description: Пользователь не найден
+        '500':
+          description: Ошибка при обновлении
     delete:
       summary: Удалить пользователя по ID
       parameters:
@@ -85,38 +96,7 @@ paths:
           description: Пользователь удален
         '404':
           description: Пользователь не найден
-
-components:
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-        firstName:
-          type: string
-        secondName:
-          type: string
-        roleId:
-          type: integer
-    UserCreate:
-      type: object
-      properties:
-        email:
-          type: string
-        password:
-          type: string
-        firstName:
-          type: string
-        secondName:
-          type: string
-        roleId:
-          type: integer
-      required:
-        - email
-        - password
-        - firstName
-        - secondName
-        - roleId
+        '500':
+          description: Ошибка при удалении
+components: {}
+tags: []
