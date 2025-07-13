@@ -1,10 +1,10 @@
 import request from "supertest";
 import express from "express";
-import { getAll } from "../../../../src/controllers/userController";
+import { getAll } from "../../../../controllers/userController";
+import { getAllUsers } from "../../../../services/userService";
 
 // Мокаем сервис
-jest.mock("../../../../src/services/userService");
-import { getAllUsers } from "../../../../src/services/userService";
+jest.mock("../../../../services/userService");
 
 const app = express();
 app.get("/users", getAll);

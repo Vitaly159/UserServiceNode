@@ -1,8 +1,8 @@
 import express from "express";
-import { getAll } from "../../../../src/controllers/userController";
+import { getAll } from "../../../../controllers/userController";
 
 // Мокаем сервис
-jest.mock("../../../../src/services/userService");
+jest.mock("../../../../services/userService");
 
 const app = express();
 app.get("/users", getAll);
@@ -24,10 +24,9 @@ describe("Тесты контроллера userController с учетом Prism
       roleId: 3,
     },
   ];
-
   test("контроллер getAll возвращает правильные данные", async () => {
     // Мокаем импортированный сервис
-    jest.spyOn(require("../../../../src/services/userService"), "getAllUsers").mockResolvedValue(mockUsers);
+    jest.spyOn(require("../../../../services/userService"), "getAllUsers").mockResolvedValue(mockUsers);
 
     // Создаем фиктивные req и res
     const req = {} as any;
