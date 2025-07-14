@@ -1,5 +1,12 @@
 import { Request, Response } from "express";
-import { createUser, getUserById, getAllUsers, updateUser, deleteUser } from "../services/userService";
+import {
+  createUser,
+  getUserById,
+  getAllUsers,
+  updateUser,
+  deleteUser,
+  getUserByEmail as _getUserByEmail,
+} from "../services/userService";
 import { UserDto } from "../dto/user.dto";
 import { UserCreateDto } from "../dto/userCreate.dto";
 import { validate } from "class-validator";
@@ -82,6 +89,28 @@ export const getUser = async (req: Request, res: Response) => {
         firstName: user.firstName,
         secondName: user.secondName,
         roleId: user.roleId,
+      };
+      res.json(userDto);
+    } else {
+      res.status(404).json({ error: "Пользователь не найден" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: "Внутренняя ошибка сервера" });
+  }
+};
+
+export const getUserByEmail = async (req: Request, res: Response) => {
+  try {
+    const email = req.params.email;
+    const user = await _getUserByEmail(email);
+    if (user) {
+      const userDto: UserDto & { password: string; id: string } = {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        secondName: user.secondName,
+        roleId: user.roleId,
+        password: user.password,
       };
       res.json(userDto);
     } else {

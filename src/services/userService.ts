@@ -30,3 +30,7 @@ export const updateUser = async (id: string, data: Partial<User>) => {
 export const deleteUser = async (id: string) => {
   return await prisma.user.delete({ where: { id } });
 };
+
+export const getUserByEmail = async (email: string): Promise<User | null> => {
+  return await prisma.user.findUnique({ where: { email } });
+};
