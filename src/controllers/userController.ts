@@ -14,6 +14,48 @@ import { UpdateUserDto } from "../dto/updateUser.dto";
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *         email:
+ *           type: string
+ *           format: email
+ *         firstName:
+ *           type: string
+ *         secondName:
+ *           type: string
+ *         roleId:
+ *           type: integer
+ *     UserCreate:
+ *       type: object
+ *       required:
+ *         - email
+ *         - firstName
+ *         - secondName
+ *         - roleId
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *         firstName:
+ *           type: string
+ *         secondName:
+ *           type: string
+ *         roleId:
+ *           type: integer
+ *         password:
+ *           type: string
+ *           minLength: 8
+ *           maxLength: 20
+ */
+
+/**
+ * @swagger
  * /api/users:
  *   post:
  *     summary: Создать нового пользователя
