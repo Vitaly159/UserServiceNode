@@ -4,7 +4,8 @@
     "dev": "nodemon --exec ts-node src/server.ts",
     "lint": "eslint src --ext .ts,.js",
     "migrate": "prisma migrate dev --name init",
-    "test": "jest"
+    "test": "jest",
+    "swagger": "node swagger.js"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",

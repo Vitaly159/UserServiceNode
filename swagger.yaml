@@ -14,20 +14,20 @@ paths:
               $ref: '#/components/schemas/UserCreate'
       responses:
         '201':
-          description: Пользователь создан
+          description: Пользователь успешно создан
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
         '400':
-          description: Ошибка валидации
+          description: Ошибка валидации данных
         '500':
           description: Внутренняя ошибка сервера
     get:
-      summary: Получить список пользователей
+      summary: Получить список всех пользователей
       responses:
         '200':
-          description: Успешный ответ
+          description: Массив пользователей
           content:
             application/json:
               schema:
@@ -47,7 +47,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Успешный ответ
+          description: Успешный ответ с данными пользователя
           content:
             application/json:
               schema:
@@ -107,6 +107,7 @@ components:
           type: string
         email:
           type: string
+          format: email
         firstName:
           type: string
         secondName:
@@ -115,20 +116,23 @@ components:
           type: integer
     UserCreate:
       type: object
+      required:
+        - email
+        - firstName
+        - secondName
+        - roleId
+        - password
       properties:
         email:
           type: string
-        password:
-          type: string
+          format: email
         firstName:
           type: string
         secondName:
           type: string
         roleId:
           type: integer
-      required:
-        - email
-        - password
-        - firstName
-        - secondName
-        - roleId
+        password:
+          type: string
+          minLength: 8
+          maxLength: 20

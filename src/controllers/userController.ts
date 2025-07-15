@@ -25,13 +25,13 @@ import { UpdateUserDto } from "../dto/updateUser.dto";
  *             $ref: '#/components/schemas/UserCreate'
  *     responses:
  *       201:
- *         description: Пользователь создан
+ *         description: Пользователь успешно создан
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       400:
- *         description: Ошибка валидации
+ *         description: Ошибка валидации данных
  *       500:
  *         description: Внутренняя ошибка сервера
  */
@@ -68,7 +68,7 @@ export const registerUser = async (req: Request, res: Response) => {
  *           type: string
  *     responses:
  *       200:
- *         description: Успешный ответ
+ *         description: Успешный ответ с данными пользователя
  *         content:
  *           application/json:
  *             schema:
@@ -125,10 +125,10 @@ export const getUserByEmail = async (req: Request, res: Response) => {
  * @swagger
  * /api/users:
  *   get:
- *     summary: Получить список пользователей
+ *     summary: Получить список всех пользователей
  *     responses:
  *       200:
- *         description: Успешный ответ
+ *         description: Массив пользователей
  *         content:
  *           application/json:
  *             schema:
