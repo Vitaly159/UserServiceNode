@@ -8,13 +8,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Устанавливаем зависимости
-RUN npm install
+# RUN npm install
 
 # Копируем весь проект
 COPY . .
 
 # Компилируем TypeScript (если используете)
-RUN npx tsc
+# RUN npx tsc
 
 # Открываем порт, на котором слушает сервер
 EXPOSE 5001

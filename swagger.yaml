@@ -98,6 +98,28 @@ paths:
           description: Пользователь не найден
         '500':
           description: Ошибка при удалении
+  /api/users/email/{email}:
+    get:
+      summary: Получить пользователя по email
+      parameters:
+        - name: email
+          in: path
+          required: true
+          description: Email пользователя
+          schema:
+            type: string
+            format: email
+      responses:
+        '200':
+          description: Пользователь найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserFull'
+        '404':
+          description: Пользователь не найден
+        '500':
+          description: Внутренняя ошибка сервера
 components:
   schemas:
     User:
@@ -136,4 +158,22 @@ components:
           type: string
           minLength: 8
           maxLength: 20
+    UserFull:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        secondName:
+          type: string
+        roleId:
+          type: integer
+        password:
+          type: string
+        isActive:
+          type: boolean
 tags: []

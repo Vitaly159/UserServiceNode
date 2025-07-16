@@ -52,6 +52,24 @@ import { UpdateUserDto } from "../dto/updateUser.dto";
  *           type: string
  *           minLength: 8
  *           maxLength: 20
+ *     UserFull:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *         email:
+ *           type: string
+ *           format: email
+ *         firstName:
+ *           type: string
+ *         secondName:
+ *           type: string
+ *         roleId:
+ *           type: integer
+ *         password:
+ *           type: string
+ *         isActive:
+ *           type: boolean
  */
 
 /**
@@ -141,18 +159,44 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * @swagger
+ * /api/users/email/{email}:
+ *   get:
+ *     summary: Получить пользователя по email
+ *     parameters:
+ *       - name: email
+ *         in: path
+ *         required: true
+ *         description: Email пользователя
+ *         schema:
+ *           type: string
+ *           format: email
+ *     responses:
+ *       200:
+ *         description: Пользователь найден
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserFull'
+ *       404:
+ *         description: Пользователь не найден
+ *       500:
+ *         description: Внутренняя ошибка сервера
+ */
 export const getUserByEmail = async (req: Request, res: Response) => {
   try {
     const email = req.params.email;
     const user = await _getUserByEmail(email);
     if (user) {
-      const userDto: UserDto & { password: string; id: string } = {
+      const userDto: UserDto & { password: string; id: string; isActive: boolean } = {
         id: user.id,
         email: user.email,
         firstName: user.firstName,
         secondName: user.secondName,
         roleId: user.roleId,
         password: user.password,
+        isActive: user.isActive,
       };
       res.json(userDto);
     } else {
