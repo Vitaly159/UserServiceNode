@@ -2,6 +2,7 @@ import request from "supertest";
 import express from "express";
 import { getAll } from "../../../../controllers/userController";
 import { getAllUsers } from "../../../../services/userService";
+import { User } from "../../../../../generated/prisma";
 
 // Мокаем сервис
 jest.mock("../../../../services/userService");
@@ -42,7 +43,7 @@ describe("Тесты контроллера userController с учетом Prism
     expect(Array.isArray(response.body)).toBe(true);
     expect(response.body).toHaveLength(mockUsers.length);
 
-    response.body.forEach((user, index) => {
+    response.body.forEach((user: User, index: number) => {
       const original = mockUsers[index];
 
       const keys = Object.keys(original).sort();

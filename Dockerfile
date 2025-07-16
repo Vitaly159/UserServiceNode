@@ -1,5 +1,5 @@
 # Используем официальный образ Node.js
-FROM node:18-alpine
+FROM node:22-alpine
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
@@ -8,16 +8,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Устанавливаем зависимости
-# RUN npm install
+RUN npm install
 
 # Копируем весь проект
 COPY . .
 
-# Компилируем TypeScript (если используете)
-# RUN npx tsc
-
-# Открываем порт, на котором слушает сервер
+# Открываем порт
 EXPOSE 5001
 
 # Запускаем сервер
-CMD ["node", "dist/server.js"]
+CMD ["npx", "ts-node", "src/server.ts"]
