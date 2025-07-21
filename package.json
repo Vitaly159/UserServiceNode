@@ -1,11 +1,13 @@
 {
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon --exec ts-node src/server.ts",
     "lint": "eslint src --ext .ts,.js",
     "migrate": "prisma migrate dev --name init",
     "test": "jest",
-    "swagger": "node swagger.js"
+    "swagger": "node swagger.js",
+    "start:docker": "powershell -Command \"Start-Process -FilePath 'C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe'\"",
+    "wait-for-docker": "powershell -Command \"Start-Sleep -Seconds 5\"",
+    "dev": "concurrently \"npm run start:docker\" \"npm run wait-for-docker && docker-compose up\""
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",
