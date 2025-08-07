@@ -4,13 +4,18 @@ import fs from "fs";
 import yaml from "js-yaml";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes";
+import cors from "cors";
+
 dotenv.config();
 const app = express();
+
+app.use(cors()); // разрешить все источники
 
 app.use(express.json()); // для парсинга JSON
 
 const swaggerDocument = yaml.load(fs.readFileSync("./swagger.yaml", "utf8")); // Загрузка спецификации
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument as swaggerUi.JsonObject)); // Маршрут для документации
-app.use('/api', userRoutes); // все маршруты начинаются с /api
+app.use("/api", userRoutes); // все маршруты начинаются с /api
+
 export default app;
